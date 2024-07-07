@@ -18,8 +18,8 @@ def teardown(exception):
     storage.close()
 
 
-@app.error_handler(404)
-def errorhdn():
+@app.errorhandler(404)
+def errorhdn(error):
     """404 error handler"""
     return jsonify({"error": "Not found"}), 404
 
