@@ -2,7 +2,7 @@
 """
     Module of the App
 """
-from flask import Flask
+from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
 import os
@@ -16,6 +16,12 @@ app.register_blueprint(app_views)
 def teardown(exception):
     """Method to call storage.close()"""
     storage.close()
+
+
+@app.error_handler(404)
+def errorhdn():
+    """404 error handler"""
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
