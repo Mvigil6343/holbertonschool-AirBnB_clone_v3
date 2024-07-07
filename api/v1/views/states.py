@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""State request management"""
 from models import storage
 from flask import Flask, jsonify, abort, request
 from models.state import State
