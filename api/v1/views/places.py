@@ -62,14 +62,15 @@ def createplace(city_id):
             abort(404)
         if "name" not in info:
             return "Missing name", 400
-        newplace = Place(city_id = city_id, **info)
+        newplace = Place(city_id=city_id, **info)
         storage.new(newplace)
         storage.save()
         return jsonify(newplace.to_dict()), 201
     return "Not a JSON", 400
 
 
-@app_views.route("/places/<place_id>", methods=["PUT"], strict_slashes=False)
+@app_views.route("/places/<place_id>",
+                 methods=["PUT"], strict_slashes=False)
 def updateplace(place_id):
     """PUT updates a Place by id"""
     place = storage.get(Place, place_id)
