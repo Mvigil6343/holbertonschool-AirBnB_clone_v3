@@ -25,7 +25,7 @@ def getplace(city_id):
     return jsonify(allplaces)
 
 
-@app_views.route("/api/v1/places/<place_id>",
+@app_views.route("/places/<place_id>",
                  methods=["GET"], strict_slashes=False)
 def getplaceid(place_id):
     """GET route to return a Place by it's id"""
@@ -47,7 +47,7 @@ def deleteplace(place_id):
     return jsonify({}), 200
 
 
-@app_views.route("/api/v1/cities/<city_id>/places",
+@app_views.route("/cities/<city_id>/places",
                  methods=["POST"], strict_slashes=False)
 def createplace(city_id):
     """POST a new Place"""
