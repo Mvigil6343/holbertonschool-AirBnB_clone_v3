@@ -62,7 +62,7 @@ def createamenity():
 def updateamenity(amenity_id):
     """PUT updates an Amenity by id"""
     amenities = storage.get(Amenity, amenity_id)
-    ignore = ["id", "created_at", "updated_at", "state_id"]
+    ignore = ["id", "created_at", "updated_at"]
     try:
         info = request.get_json()
         for k, v in info.items():
