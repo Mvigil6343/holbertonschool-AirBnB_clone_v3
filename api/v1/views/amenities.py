@@ -54,7 +54,8 @@ def createamenity():
         storage.new(newamenity)
         storage.save()
         return jsonify(newamenity.to_dict()), 201
-    return "Not a JSON", 400
+    else:
+        return "Not a JSON", 400
 
 
 @app_views.route("amenities/<amenity_id>",
