@@ -39,7 +39,7 @@ def getreviewid(review_id):
                  strict_slashes=False)
 def deletereview(review__id):
     """DELETE route to delete a Review"""
-    review = storage.get(review, review__id)
+    review = storage.get(Review, review__id)
     if review is None:
         abort(404)
     storage.delete(review)
