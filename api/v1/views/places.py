@@ -17,7 +17,7 @@ app = Flask(__name__)
 def getplace(city_id):
     """GET route to return all Places from a city"""
     allplaces = []
-    city = storage.all(City, city_id)
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
     for place in city.places:
