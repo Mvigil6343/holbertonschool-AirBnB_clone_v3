@@ -1,9 +1,7 @@
-#!/usr/bin/python3
-"""
-Contains the TestFileStorageDocs classes
-"""
-
-from datetime import datetime
+import unittest
+import json
+import pep8
+import os
 import inspect
 import models
 from models.engine import file_storage
@@ -14,14 +12,10 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-import json
-import os
-import pep8
-import unittest
+
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
-
 
 class TestFileStorageDocs(unittest.TestCase):
     """Tests to check the documentation and style of FileStorage class"""
@@ -38,10 +32,9 @@ class TestFileStorageDocs(unittest.TestCase):
                          "Found code style errors (and warnings).")
 
     def test_pep8_conformance_test_file_storage(self):
-        """Test tests/test_models/test_file_storage.py conforms to PEP8."""
+        """Test tests/test_models/test_engine/test_file_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
-        result = pep8s.check_files(['tests/test_models/test_engine/\
-test_file_storage.py'])
+        result = pep8s.check_files(['tests/test_models/test_engine/test_file_storage.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
@@ -116,8 +109,25 @@ class TestFileStorage(unittest.TestCase):
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get(self):
-        """the test exists"""
+        """Test the get method"""
+        storage = FileStorage()
+        new_state = State(name="California")
+        storage.new(new_state)
+        storage.save()
+        state_id = new_state.id
+        state = storage.get(State, state_id)
+        self.assertEqual(state, new_state)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count(self):
-        """the test exists"""
+        """Test the count method"""
+        storage = FileStorage()
+        initial_count = storage.count(State)
+        new_state = State(name="Nevada")
+        storage.new(new_state)
+        storage.save()
+        updated_count = storage.count(State)
+        self.assertEqual(updated_count, initial_count + 1)
+
+# if __name__ == '__main__':
+#     unittest.main()
