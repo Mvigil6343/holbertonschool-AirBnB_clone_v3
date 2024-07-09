@@ -47,14 +47,14 @@ def deleteamenity(amenity_id):
 def createamenity():
     """POST a new Amenity"""
     amenity = request.get_json()
-    if not amenity:
-        return "Not a JSON", 400
-    if "name" not in amenity:
-        return "Missing name", 400
-    newamenity = Amenity(**amenity)
-    storage.new(newamenity)
-    storage.save()
-    return jsonify(newamenity.to_dict()), 201
+    if request.is_json:
+        if "name" not in amenity:
+            return "Missing name", 400
+        newamenity = Amenity(**amenity)
+        storage.new(newamenity)
+        storage.save()
+        return jsonify(newamenity.to_dict()), 201
+    return "Not a JSON", 400
 
 
 @app_views.route("amenities/<amenity_id>",
