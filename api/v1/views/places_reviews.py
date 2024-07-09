@@ -69,7 +69,7 @@ def createreview(place_id):
     return "Not a JSON", 400
 
 
-@app_views.route("reviews/<review_id",
+@app_views.route("/reviews/<review_id>",
                  methods=["PUT"], strict_slashes=False)
 def updatereview(review_id):
     """PUT updates a Review by id"""
